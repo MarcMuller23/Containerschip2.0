@@ -9,12 +9,11 @@ namespace ContainerVervoer
     public class Container
     {
         public int Position { get;internal set; }
-        public ContainerType containertype;
+        public ContainerType Containertype;
         public int Weight { get;internal set; }
-        public Container(int position, ContainerType _containerType,int weight)
+        public Container( ContainerType _containerType,int weight)
         {
-            Position = position;
-            containertype = _containerType;
+            Containertype = _containerType;
             Weight = weight;
         }
         public enum ContainerType
@@ -22,6 +21,12 @@ namespace ContainerVervoer
             Cooled,
             Valuable,
             Normal
+        }
+        public void SetPostition(int position) { Position = position; }
+        public override string ToString()
+        {
+            return Containertype.ToString() + " " + Weight + " "+ Position;
+
         }
     }
 }

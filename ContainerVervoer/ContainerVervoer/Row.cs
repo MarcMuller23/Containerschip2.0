@@ -9,12 +9,12 @@ namespace ContainerVervoer
     public class Row
     {
         public int RowNumber { get; internal set; }
-        List<Stack> StackList = new List<Stack>();
-        public Row(int rownumber)
+        public int RowWeight { get; internal set; }
+        public List<Stack> StackList { get; internal set; } = new List<Stack>();
+        public Row()
         {
-            RowNumber = rownumber;
-        }
-        public void CreateStack() { }
+            
+        }        
         public List<Stack> GetStacks() { return StackList; }
     }
 }

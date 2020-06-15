@@ -7,3 +7,13 @@ D:\Git\sEMESTER 2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer
 D:\Git\sEMESTER 2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.csproj.CoreCompileInputs.cache
 D:\Git\sEMESTER 2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.exe
 D:\Git\sEMESTER 2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.pdb
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\bin\Debug\ContainerVervoer.exe.config
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\bin\Debug\ContainerVervoer.exe
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\bin\Debug\ContainerVervoer.pdb
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.csprojAssemblyReference.cache
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.Form1.resources
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.Properties.Resources.resources
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.csproj.GenerateResource.cache
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.csproj.CoreCompileInputs.cache
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.exe
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoer\obj\Debug\ContainerVervoer.pdb
