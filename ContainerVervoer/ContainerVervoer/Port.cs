@@ -4,7 +4,7 @@ namespace ContainerVervoer
 {
     public class Port
     {   //Prop
-        private Ship GeenVrachtWagen;
+        public Ship GeenVrachtWagen;
         //containerlijsten
         public List<Container> NormalContainerList { get; internal set; } = new List<Container>();
         public List<Container> ValuableContainerList { get; internal set; } = new List<Container>();
@@ -94,7 +94,7 @@ namespace ContainerVervoer
             CalculateShipValues(length, width, height);
             for (int i = 0; i < length; i++)
             {
-                GeenVrachtWagen.CreateRows();
+                GeenVrachtWagen.CreateRow();
             }
         }
         private void CalculateShipValues(int length, int width, int height)
@@ -136,21 +136,21 @@ namespace ContainerVervoer
         {
             foreach (var stack in CooledStackList)
             {
-
+                GeenVrachtWagen.AssignStackToRow(stack);
             }
         }
         private void AssignValuableStack()
         {
-            foreach (var stack in ValuableContainerList)
+            foreach (var stack in ValuableStackList)
             {
-
+                GeenVrachtWagen.AssignStackToRow(stack);
             }
         }
         private void AssignNormalStack()
         {
             foreach (var stack in NormalStackList)
             {
-
+                GeenVrachtWagen.AssignStackToRow(stack);
             }
         }
 

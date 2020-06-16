@@ -1,0 +1,17 @@
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\ContainerVervoerTests.dll
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\ContainerVervoerTests.pdb
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\ContainerVervoer.exe
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\ContainerVervoer.pdb
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\ContainerVervoer.exe.config
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\obj\Debug\ContainerVervoerTests.csprojAssemblyReference.cache
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\obj\Debug\ContainerVervoerTests.csproj.CoreCompileInputs.cache
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\obj\Debug\ContainerVervoerTests.csproj.CopyComplete
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\obj\Debug\ContainerVervoerTests.dll
+D:\Git\StarRocks\Containerschip2.0\ContainerVervoer\ContainerVervoerTests\obj\Debug\ContainerVervoerTests.pdb

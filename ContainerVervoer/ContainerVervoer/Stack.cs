@@ -10,7 +10,7 @@ namespace ContainerVervoer
         public bool Cooled { get; internal set; }
         public bool Valuable { get; internal set; }
         public List<Container> ContainerList { get; internal set; } = new List<Container>();
-        public ContainerType Containertype { get; internal set; }
+
         public int StackWeight { get; internal set; }
         public bool StackIsFull { get; internal set; }
         //Methods
@@ -110,9 +110,9 @@ namespace ContainerVervoer
         }
         private List<Container> SortContainerListOnPostion(List<Container> containerlist)
         {
-            containerlist.OrderBy(container=>container.Position).ToList();
+            containerlist.OrderBy(container => container.Position).ToList();
             return containerlist;
         }
-        
+
     }
 }

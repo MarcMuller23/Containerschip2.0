@@ -10,6 +10,7 @@ namespace ContainerVervoer
     {
         public int RowNumber { get; internal set; }
         public int RowWeight { get; internal set; }
+        public bool RowIsFull { get; internal set; }
         public List<Stack> StackList { get; internal set; } = new List<Stack>();
         public Row()
         {
