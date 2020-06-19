@@ -59,6 +59,7 @@
     <Compile Include="PortTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShipTests.cs" />
+    <Compile Include="StackTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

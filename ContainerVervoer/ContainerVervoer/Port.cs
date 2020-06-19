@@ -3,110 +3,127 @@
 namespace ContainerVervoer
 {
     public class Port
-    {   //Prop
-        public Ship GeenVrachtWagen;
-        //containerlijsten
-        public List<Container> NormalContainerList { get; internal set; } = new List<Container>();
-        public List<Container> ValuableContainerList { get; internal set; } = new List<Container>();
-        public List<Container> CooledContainerList { get; internal set; } = new List<Container>();
+    {
+        ShipFactory Factory;        
+        public List<Container> NormalContainers { get; internal set; } = new List<Container>();
+        public List<Container> ValuableContainers { get; internal set; } = new List<Container>();
+        public List<Container> CooledContainers { get; internal set; } = new List<Container>();
+        public List<Container> LeftOverContainers { get; internal set; } = new List<Container>();
         //Stacklijsten
-        public List<Stack> StackList { get; internal set; } = new List<Stack>();
-        public List<Stack> CooledStackList { get; internal set; } = new List<Stack>();
-        public List<Stack> ValuableStackList { get; internal set; } = new List<Stack>();
-        public List<Stack> NormalStackList { get; internal set; } = new List<Stack>();
+        public List<Stack> Stacks { get; internal set; } = new List<Stack>();
+        public List<Stack> CooledStacks { get; internal set; } = new List<Stack>();
+        public List<Stack> ValuableStacks { get; internal set; } = new List<Stack>();
+        public List<Stack> NormalStacks { get; internal set; } = new List<Stack>();
+
         //Methods
-        //Stacks maken
+        //Building the stacks before they go on ship
         public void BuildStacks()
         {
-            StackList.Add(new Stack());
+            
+            
+            Stacks.Add(new Stack());
             AddValuableContainers();
             AddCooledContainers();
             AddNormalContainers();
         }
+        //Starting off with valuable containers
         private void AddValuableContainers()
         {
-            foreach (var container in ValuableContainerList)
+            foreach (var container in ValuableContainers)
             {
-                for (int i = 0; i < StackList.Count; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    if (StackList[i].CheckContainerCompatibility(container, GeenVrachtWagen.Height))
+                    bool newStack = false;
+                    for (int e = 0; e < Stacks.Count; e++)
                     {
-
-                        StackList[i].PlaceContainer(container);
+                        if (Stacks[e].CheckContainerCompatibility(container, Factory.GetShip().Height))
+                        {
+                            Stacks[e].PlaceContainer(container, Factory.GetShip().Height);
+                            newStack = false;
+                            i = 2;
+                            e = Stacks.Count;
+                        }
+                        else
+                        {
+                            newStack = true;
+                        }
                     }
-                    else if (StackList.Count != GeenVrachtWagen.MaxStacks)
+                    if (Stacks.Count != Factory.GetShip().MaxStacks && newStack == true)
                     {
-                        StackList.Add(new Stack());
-                        i = StackList.Count;
+                        Stacks.Add(new Stack());
                     }
                 }
             }
         }
+        //Adding the cooled ones after the valuables
         private void AddCooledContainers()
         {
-            foreach (var container in CooledContainerList)
+            foreach (var container in CooledContainers)
             {
-                for (int i = 0; i < StackList.Count; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    if (StackList[i].CheckContainerCompatibility(container, GeenVrachtWagen.Height))
+                    bool newStack = false;
+                    for (int e = 0; e < Stacks.Count; e++)
                     {
-
-                        StackList[i].PlaceContainer(container);
+                        if (Stacks[e].CheckContainerCompatibility(container, Factory.GetShip().Height))
+                        {
+                            Stacks[e].PlaceContainer(container, Factory.GetShip().Height);
+                            newStack = false;
+                            i = 2;
+                            e = Stacks.Count;
+                        }
+                        else
+                        {
+                            newStack = true;
+                        }
                     }
-                    else if (StackList.Count != GeenVrachtWagen.MaxStacks)
+                    if (Stacks.Count != Factory.GetShip().MaxStacks && newStack == true)
                     {
-                        StackList.Add(new Stack());
-                        i = StackList.Count;
+                        Stacks.Add(new Stack());
                     }
                 }
             }
         }
+        //and then the normal containers
         private void AddNormalContainers()
         {
-            foreach (var container in NormalContainerList)
+            foreach (var container in NormalContainers)
             {
-                for (int i = 0; i < StackList.Count; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    if (StackList[i].CheckContainerCompatibility(container, GeenVrachtWagen.Height))
+                    bool newStack = false;
+                    for (int e = 0; e < Stacks.Count; e++)
                     {
-
-                        StackList[i].PlaceContainer(container);
+                        if (Stacks[e].CheckContainerCompatibility(container, Factory.GetShip().Height))
+                        {
+                            Stacks[e].PlaceContainer(container, Factory.GetShip().Height);
+                            newStack = false;
+                            i = 2;
+                            e = Stacks.Count;
+                        }
+                        else
+                        {
+                            newStack = true;
+                        }
                     }
-                    else if (StackList.Count != GeenVrachtWagen.MaxStacks)
+                    if (Stacks.Count != Factory.GetShip().MaxStacks && newStack == true)
                     {
-                        StackList.Add(new Stack());
-                        i = StackList.Count;
+                        Stacks.Add(new Stack());
                     }
                 }
             }
         }
+        //Geting the containerlist form the form
         public void SetContainerList(List<Container> normalContainerList, List<Container> valuableContainerList, List<Container> cooledContainerList)
         {
-            NormalContainerList = normalContainerList;
-            ValuableContainerList = valuableContainerList;
-            CooledContainerList = cooledContainerList;
+            NormalContainers = normalContainerList;
+            ValuableContainers = valuableContainerList;
+            CooledContainers = cooledContainerList;
         }
+        
+        
 
-        //Schip aanmaken
-        public void CreateShip(int length, int width, int height)
-        {
-            GeenVrachtWagen = new Ship(length, width, height);
-            CalculateShipValues(length, width, height);
-            for (int i = 0; i < length; i++)
-            {
-                GeenVrachtWagen.CreateRow();
-            }
-        }
-        private void CalculateShipValues(int length, int width, int height)
-        {
-            int maxStacks = length * width;
-            int maxValuable = width * 2;
-            int maxCoolable = width * height - (ValuableContainerList.Count / 2);
-            GeenVrachtWagen.SetShipValues(maxStacks, maxValuable, maxCoolable);
-
-        }
-        //Stacks verdelen op rows
-
+        //Assigning stacks to rows, starting with cooled then valuables and then normals
         public void AssignRow()
         {
             DivideStacks();
@@ -115,50 +132,52 @@ namespace ContainerVervoer
             AssignNormalStack();
 
         }
+        //Seperating the diffrent types of stacks
         private void DivideStacks()
         {
-            foreach (var stack in StackList)
+            foreach (var stack in Stacks)
             {
                 if (stack.Cooled == true)
                 {
-                    CooledStackList.Add(stack);
+                    CooledStacks.Add(stack);
                 }
                 else if (stack.Valuable == true)
                 {
-                    ValuableStackList.Add(stack);
+                    ValuableStacks.Add(stack);
                 }
-                NormalStackList.Add(stack);
-
+                NormalStacks.Add(stack);
             }
-
         }
+        //Assign the cooled ones
         private void AssignCooledStack()
         {
-            foreach (var stack in CooledStackList)
+            foreach (var stack in CooledStacks)
             {
-                GeenVrachtWagen.AssignStackToRow(stack);
+                Factory.GetShip().AssignStackToRow(stack);
             }
         }
+        //Assign the valuable ones
         private void AssignValuableStack()
         {
-            foreach (var stack in ValuableStackList)
+            foreach (var stack in ValuableStacks)
             {
-                GeenVrachtWagen.AssignStackToRow(stack);
+                Factory.GetShip().AssignStackToRow(stack);
             }
         }
+        //Assign the normal ones
         private void AssignNormalStack()
         {
-            foreach (var stack in NormalStackList)
+            foreach (var stack in NormalStacks)
             {
-                GeenVrachtWagen.AssignStackToRow(stack);
+                Factory.GetShip().AssignStackToRow(stack);
             }
         }
-
         //testing
-
         public List<Container> GetStack()
         {
-            return StackList[0].ContainerList;
+            return Stacks[0].Containers;
         }
+        //Setting the factory so you have the same one from Form
+        public void SetFactory(ShipFactory factory) { Factory = factory; }
     }
 }

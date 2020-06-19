@@ -1,101 +1,206 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using ContainerVervoer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ContainerVervoer.Tests
 {
     [TestClass()]
     public class PortTests
     {
-
-        //rotterdam kleine letter
+        Port RotterdamHarbor = new Port();
+        ShipFactory Factory = new ShipFactory();
+        
+        //make new stack for new valuable
         [TestMethod()]
-        public void BuildStacks_ValuableContainerStack_2ValuableContainers_Succes()
+        public void Build_2_seperate_stacks_for_2_Valuable_Containers()
         {
-            //arrange
-            Port rotterdamHarbor = new Port();
+            //arrange            
             for (int i = 0; i < 2; i++)
             {
-                rotterdamHarbor.ValuableContainerList.Add(new Container(Container.ContainerType.Valuable, 4000));
+                RotterdamHarbor.ValuableContainers.Add(new Container(Container.ContainerType.Valuable, 4000));
             }
+            Factory.CreateShip(4, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);
             //act
-            rotterdamHarbor.CreateShip(4, 4, 4);
-            rotterdamHarbor.BuildStacks();
+
+            RotterdamHarbor.SetFactory(Factory);
+            RotterdamHarbor.BuildStacks();
             //Assert
-            Assert.AreEqual(2, rotterdamHarbor.StackList.Count);
+            Assert.AreEqual(2, RotterdamHarbor.Stacks.Count);
         }
+
         [TestMethod()]
-        public void BuildStacks_ValuableContainerStack_4ValuableContainers_Succes()//or 4 stacks?
+        public void Build_4_seperate_stacks_for_4_Valuable_Containers()
         {
-            //arrange
-            Port rotterdamHarbor = new Port();
+            //arrange            
             for (int i = 0; i < 4; i++)
             {
-                rotterdamHarbor.ValuableContainerList.Add(new Container(Container.ContainerType.Valuable, 4000));
+                RotterdamHarbor.ValuableContainers.Add(new Container(Container.ContainerType.Valuable, 30));
             }
+            Factory.CreateShip(4, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);
             //act
-            rotterdamHarbor.CreateShip(4, 4, 4);
-            rotterdamHarbor.BuildStacks();
+
+            RotterdamHarbor.SetFactory(Factory);
+            RotterdamHarbor.BuildStacks();
             //Assert
-            Assert.AreEqual(4, rotterdamHarbor.StackList.Count);
+            Assert.AreEqual(4, RotterdamHarbor.Stacks.Count);
+        }
+
+        //calculating ship variables
+        [TestMethod()]
+        public void Calculating_Max_Values_Created_Ship()
+        {
+            //arrange
+            //act           
+            Factory.CreateShip(4, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);
+            RotterdamHarbor.SetFactory(Factory);
+            //act
+            //assert
+            Assert.AreEqual(16, Factory.GetShip().MaxStacks);
+            Assert.AreEqual(4, Factory.GetShip().MaxValuable);
+            Assert.AreEqual(16, Factory.GetShip().MaxCoolable);
+        }
+
+        //creating rows
+        [TestMethod()]
+        public void Creating_4_Rows()
+        {
+            //arrange
+            //act
+            Factory.CreateShip(4, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);
+            RotterdamHarbor.SetFactory(Factory);
+            //assert
+            Assert.AreEqual(4, Factory.GetShip().Rows.Count);
         }
 
         [TestMethod()]
-        public void CreateShip_CalculateShipValues_MaxStacks_16_Succes()
+        public void Creating_16_Rows()
         {
             //arrange
-            Port rotterdamHarbor = new Port();
-
             //act
-            rotterdamHarbor.CreateShip(4, 4, 4);
+            Factory.CreateShip(16, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);
+            RotterdamHarbor.SetFactory(Factory);
             //assert
-            Assert.AreEqual(16, rotterdamHarbor.GeenVrachtWagen.MaxStacks);
+            Assert.AreEqual(16, Factory.GetShip().Rows.Count);
         }
+
+        //Assigning stacks to rows
         [TestMethod()]
-        public void CreateShip_CalculateShipValues_MaxValuable_8_Succes()
+        public void Assign_1_cooled_Valuable_Stack_To_Front_Row()
         {
             //arrange
-            Port rotterdamHarbor = new Port();
-
+            
+            for (int i = 0; i < 1; i++)
+            {
+                RotterdamHarbor.ValuableContainers.Add(new Container(Container.ContainerType.Valuable, 30));
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                RotterdamHarbor.CooledContainers.Add(new Container(Container.ContainerType.Cooled, 30));
+            }
+            Factory.CreateShip(4, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);
+            int totalContainers = RotterdamHarbor.ValuableContainers.Count + RotterdamHarbor.CooledContainers.Count;
+            RotterdamHarbor.SetFactory(Factory);
+            RotterdamHarbor.BuildStacks();
             //act
-            rotterdamHarbor.CreateShip(4, 4, 4);
+            RotterdamHarbor.AssignRow();
             //assert
-            Assert.AreEqual(8, rotterdamHarbor.GeenVrachtWagen.MaxValuable);
+            Assert.IsNotNull(Factory.GetShip().Rows[0].Stacks[0]);
+            Assert.AreEqual(totalContainers, Factory.GetShip().Rows[0].Stacks[0].Containers.Count);
         }
-        [TestMethod()]//meer hiervan vanwege formule
-        public void CreateShip_CalculateShipValues_MaxCoolable_16_Succes()
-        {
-            //arrange
-            Port rotterdamHarbor = new Port();
 
-            //act
-            rotterdamHarbor.CreateShip(4, 4, 4);
-            //assert
-            Assert.AreEqual(16, rotterdamHarbor.GeenVrachtWagen.MaxCoolable);
-        }
-        [TestMethod()]//meer hiervan vanwege formule
-        public void CreateShip_CalculateShipValues_MaxCoolable_15_Succes()
+        [TestMethod()]
+        public void Assign_2_cooled_Valuable_Stack_To_Front_Row()
         {
             //arrange
-            Port rotterdamHarbor = new Port();
             for (int i = 0; i < 2; i++)
             {
-                rotterdamHarbor.ValuableContainerList.Add(new Container(Container.ContainerType.Valuable, 4000));
+                RotterdamHarbor.ValuableContainers.Add(new Container(Container.ContainerType.Valuable, 30));
             }
+            for (int i = 0; i < 6; i++)
+            {
+                RotterdamHarbor.CooledContainers.Add(new Container(Container.ContainerType.Cooled, 30));
+            }
+            Factory.CreateShip(4, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);
+            int totalContainers = RotterdamHarbor.ValuableContainers.Count + RotterdamHarbor.CooledContainers.Count;            
+            RotterdamHarbor.SetFactory(Factory);
+            RotterdamHarbor.BuildStacks();
             //act
-            rotterdamHarbor.CreateShip(4, 4, 4);
+            RotterdamHarbor.AssignRow();
+            int totalContainerOnShip = Factory.GetShip().Rows[0].Stacks[0].Containers.Count + Factory.GetShip().Rows[1].Stacks[0].Containers.Count;
             //assert
-            Assert.AreEqual(15, rotterdamHarbor.GeenVrachtWagen.MaxCoolable);
+            Assert.IsNotNull(Factory.GetShip().Rows[0].Stacks[0]);
+            Assert.IsNotNull(Factory.GetShip().Rows[1].Stacks[0]);
+            Assert.AreEqual(totalContainers, totalContainerOnShip);
         }
 
         [TestMethod()]
-        public void CreateShip_CreateRows_4_Succes()
+        public void Assign_3_cooled_Valuable_Stack_To_Front_Row()
         {
             //arrange
-            Port rotterdamHarbor = new Port();
-
+            for (int i = 0; i < 3; i++)
+            {
+                RotterdamHarbor.ValuableContainers.Add(new Container(Container.ContainerType.Valuable, 30));
+            }
+            for (int i = 0; i < 9; i++)
+            {
+                RotterdamHarbor.CooledContainers.Add(new Container(Container.ContainerType.Cooled, 30));
+            }
+            Factory.CreateShip(4, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);
+            int totalContainers = RotterdamHarbor.ValuableContainers.Count + RotterdamHarbor.CooledContainers.Count;
+            RotterdamHarbor.SetFactory(Factory);
+            RotterdamHarbor.BuildStacks();
             //act
-            rotterdamHarbor.CreateShip(4, 4, 4);
+            RotterdamHarbor.AssignRow();
+            int totalContainerOnShip = Factory.GetShip().Rows[0].Stacks[0].Containers.Count + Factory.GetShip().Rows[1].Stacks[0].Containers.Count+ Factory.GetShip().Rows[2].Stacks[0].Containers.Count;
             //assert
-            Assert.AreEqual(4, rotterdamHarbor.GeenVrachtWagen.RowList.Count);
+            Assert.IsNotNull(Factory.GetShip().Rows[0].Stacks[0]);
+            Assert.IsNotNull(Factory.GetShip().Rows[1].Stacks[0]);
+            Assert.IsNotNull(Factory.GetShip().Rows[2].Stacks[0]);
+            Assert.AreEqual(totalContainers, totalContainerOnShip);
+
+        }
+
+        //do all containers have a spot?
+        [TestMethod()]
+        public void Do_All_Containers_Have_Spots()
+        {
+            //arrange
+            List<Container> startListContainers = new List<Container>();
+            List<Container> containersOnShip = new List<Container>();
+            for (int i = 0; i < 4; i++)
+            {
+                RotterdamHarbor.ValuableContainers.Add(new Container(Container.ContainerType.Valuable, 30));
+                startListContainers.Add(new Container(Container.ContainerType.Valuable, 30));
+            }
+            for (int i = 0; i < 12; i++)
+            {
+                RotterdamHarbor.CooledContainers.Add(new Container(Container.ContainerType.Cooled, 30));
+                startListContainers.Add(new Container(Container.ContainerType.Cooled, 30));
+            }
+            for (int i = 0; i < 48; i++)
+            {
+                RotterdamHarbor.NormalContainers.Add(new Container(Container.ContainerType.Normal, 30));
+                startListContainers.Add(new Container(Container.ContainerType.Normal, 30));
+            }
+            Factory.CreateShip(4, 4, 4, RotterdamHarbor.ValuableContainers.Count, RotterdamHarbor.CooledContainers.Count);            
+            RotterdamHarbor.SetFactory(Factory);
+            RotterdamHarbor.BuildStacks();  
+            //act
+            RotterdamHarbor.AssignRow();
+            foreach (var row in Factory.GetShip().Rows)
+            {
+                foreach (var stack in row.Stacks)
+                {
+                    foreach (var container in stack.Containers)
+                    {
+                        containersOnShip.Add(container);
+                    }
+                }
+            }
+            //assert
+            Assert.AreEqual(startListContainers.Count, containersOnShip.Count);
+
         }
     }
 }

@@ -1,32 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ContainerVervoer
+﻿namespace ContainerVervoer
 {
     public class Container
     {
-        public int Position { get;internal set; }
+        //public int Position { get;internal set; }
         public ContainerType Containertype;
-        public int Weight { get;internal set; }
-        public Container( ContainerType _containerType,int weight)
+        public int Weight { get; internal set; }
+        public Container(ContainerType _containerType, int weight)
         {
             Containertype = _containerType;
             Weight = weight;
         }
+        //Enum for getting to know the container
         public enum ContainerType
         {
-            Cooled,
-            Valuable,
-            Normal
+            Normal = 1,
+            Valuable = 2,
+            Cooled = 3
+
         }
-        public void SetPostition(int position) { Position = position; }
+        //Getting the enum int for the visualizer
+        public int GetContainerTypeValue()
+        {
+            return (int)Containertype;
+        }
+        
         public override string ToString()
         {
-            return Containertype.ToString() + " " + Weight + " "+ Position;
-
+            return Containertype.ToString() + " " + Weight;
         }
     }
 }

@@ -11,10 +11,6 @@ namespace ContainerVervoer.Tests
     [TestClass()]
     public class ShipTests
     {
-        [TestMethod()]
-        public void AssignStackToRowTest()
-        {
-            Assert.Fail();
-        }
+        
     }
 }

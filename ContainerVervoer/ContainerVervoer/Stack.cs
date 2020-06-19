@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using static ContainerVervoer.Container;
 
 namespace ContainerVervoer
@@ -9,18 +8,19 @@ namespace ContainerVervoer
         public int StackPosition { get; internal set; }
         public bool Cooled { get; internal set; }
         public bool Valuable { get; internal set; }
-        public List<Container> ContainerList { get; internal set; } = new List<Container>();
-
+        public List<Container> Containers = new List<Container>();
+        public int Height => Containers.Count;
         public int StackWeight { get; internal set; }
         public bool StackIsFull { get; internal set; }
         //Methods
+        //The first time checking if the container is compatible
         public bool CheckContainerCompatibility(Container container, int height)
         {
             bool compatible = true;
 
-            for (int i = 0; i < ContainerList.Count; i++)
+            for (int i = 0; i < Containers.Count; i++)
             {
-                if (CheckIfFull(height) && CheckIfValuableIsPresent(container) && CheckMaxWeight(container))
+                if (CheckIfFull(height) && CheckMaxWeight(container) && CheckIfValuableIsPresent(container))
                 {
                     compatible = true;
                 }
@@ -29,23 +29,24 @@ namespace ContainerVervoer
             }
             return compatible;
         }
+        //Checking if the stack is ful
         private bool CheckIfFull(int height)
         {
-            if (ContainerList.Count == height)
+            if (Containers.Count == height)
             {
                 StackIsFull = true;
                 return false;
             }
             else return true;
         }
-
+        //Checking if valuable is present, so no extra valuables are added
         private bool CheckIfValuableIsPresent(Container container)
         {
             if (container.Containertype == ContainerType.Valuable)
             {
-                for (int i = 0; i < ContainerList.Count; i++)
+                for (int i = 0; i < Containers.Count; i++)
                 {
-                    if (ContainerList[i].Containertype == ContainerType.Valuable)
+                    if (Containers[i].Containertype == ContainerType.Valuable)
                     {
                         return false;
                     }
@@ -53,47 +54,52 @@ namespace ContainerVervoer
             }
             return true;
         }
+        //Checking if the weight limit is overreached
         private bool CheckMaxWeight(Container container)
         {
-            int maxWeightOnFirstContainer = StackWeight - ContainerList[0].Weight;
+            
+            int maxWeightOnFirstContainer =120;
 
-            if (maxWeightOnFirstContainer + container.Weight > 120000)
+            if ((StackWeight-Containers[0].Weight + container.Weight  ) > maxWeightOnFirstContainer)
             {
                 return false;
             }
             return true;
         }
-        public void PlaceContainer(Container container)
+        //Giving the container a place within the stack
+        public void PlaceContainer(Container container, int height)
         {
-            //waardevolle container een plaats omhoog
-            for (int i = 0; i < ContainerList.Count; i++)
+            if (CheckContainerCompatibility(container, height))
             {
-                if (ContainerList[i].Containertype == ContainerType.Valuable)
+                Container valuableContainer = null;
+                for (int i = 0; i < Containers.Count; i++)
                 {
-                    ContainerList[i].SetPostition(ContainerList[i].Position + 1);
+                    if (Containers[i].Containertype == ContainerType.Valuable)
+                    {
+                        valuableContainer = Containers[i];
+                        Containers.RemoveAt(i);
+                        
+                        
+                        i = Containers.Count;
+                    }
                 }
-            }
-            GiveContainerPostition(container);
-            CheckIfContainerIsValuable(container);
-            CheckIfContainerIsCooled(container);
-            SortContainerListOnPostion(ContainerList);
-            StackWeight += container.Weight;
+                Containers.Add(container);
+                Containers.Add(valuableContainer);
+                for (int i = 0; i < Containers.Count; i++)
+                {
+                    if (Containers[i]==null)
+                    {
+                        Containers.RemoveAt(i);
+                    }
+                }
 
-        }
-        private void GiveContainerPostition(Container container)
-        {
-            if (Valuable)
-            {
-                int newPosition = ContainerList.Count;
-                container.Position = ContainerList[newPosition - 1].Position - 1;
-                ContainerList.Add(container);
-            }
-            else
-            {
-                container.Position = ContainerList.Count + 1;
-                ContainerList.Add(container);
+
+                CheckIfContainerIsValuable(container);
+                CheckIfContainerIsCooled(container);
+                StackWeight += container.Weight;
             }
         }
+        //Checking if the container is valuable, so the stack knows if its a valuable stack
         private void CheckIfContainerIsValuable(Container container)
         {
             if (container.Containertype == ContainerType.Valuable)
@@ -101,6 +107,7 @@ namespace ContainerVervoer
                 Valuable = true;
             }
         }
+        //Checking if the container is Cooled, so the stack knows if its a cooled stack
         private void CheckIfContainerIsCooled(Container container)
         {
             if (container.Containertype == ContainerType.Cooled)
@@ -108,11 +115,6 @@ namespace ContainerVervoer
                 Cooled = true;
             }
         }
-        private List<Container> SortContainerListOnPostion(List<Container> containerlist)
-        {
-            containerlist.OrderBy(container => container.Position).ToList();
-            return containerlist;
-        }
-
+        public void SetStackWeight(int weight) { StackWeight = +weight; }
     }
 }

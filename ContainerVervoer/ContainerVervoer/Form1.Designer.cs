@@ -46,6 +46,7 @@
             this.AddedContainerLB = new System.Windows.Forms.ListBox();
             this.PlanContainersBtn = new System.Windows.Forms.Button();
             this.Stack1Lb = new System.Windows.Forms.ListBox();
+            this.ShowVisual = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ContainerWeightNum)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -81,12 +82,12 @@
             // 
             this.ContainerWeightNum.Location = new System.Drawing.Point(9, 78);
             this.ContainerWeightNum.Maximum = new decimal(new int[] {
-            30000,
+            30,
             0,
             0,
             0});
             this.ContainerWeightNum.Minimum = new decimal(new int[] {
-            4000,
+            4,
             0,
             0,
             0});
@@ -94,7 +95,7 @@
             this.ContainerWeightNum.Size = new System.Drawing.Size(120, 20);
             this.ContainerWeightNum.TabIndex = 4;
             this.ContainerWeightNum.Value = new decimal(new int[] {
-            4000,
+            30,
             0,
             0,
             0});
@@ -281,11 +282,22 @@
             this.Stack1Lb.Size = new System.Drawing.Size(197, 407);
             this.Stack1Lb.TabIndex = 14;
             // 
+            // ShowVisual
+            // 
+            this.ShowVisual.Location = new System.Drawing.Point(34, 467);
+            this.ShowVisual.Name = "ShowVisual";
+            this.ShowVisual.Size = new System.Drawing.Size(136, 23);
+            this.ShowVisual.TabIndex = 15;
+            this.ShowVisual.Text = "visual";
+            this.ShowVisual.UseVisualStyleBackColor = true;
+            this.ShowVisual.Click += new System.EventHandler(this.ShowVisual_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 530);
+            this.Controls.Add(this.ShowVisual);
             this.Controls.Add(this.Stack1Lb);
             this.Controls.Add(this.PlanContainersBtn);
             this.Controls.Add(this.AddedContainerLB);
@@ -325,6 +337,7 @@
         private System.Windows.Forms.Button PlanContainersBtn;
         private System.Windows.Forms.NumericUpDown ShipHeightNum;
         private System.Windows.Forms.ListBox Stack1Lb;
+        private System.Windows.Forms.Button ShowVisual;
     }
 }
 
